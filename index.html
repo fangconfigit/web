@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Landing Page</title>
+
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #ffffff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        nav a {
+            margin-left: 25px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, #007bff, #00c6ff);
+            padding: 120px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+
+        .cta-btn {
+            margin-top: 30px;
+            background: #ffffff;
+            color: #007bff;
+            padding: 14px 34px;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            background: #e1ecff;
+        }
+
+        /* Features section */
+        .section {
+            max-width: 1100px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid #eee;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .feature-card h3 {
+            margin-top: 10px;
+            font-size: 22px;
+        }
+
+        .feature-card p {
+            opacity: 0.8;
+        }
+
+        /* Testimonials */
+        .testimonial {
+            background: #f7f9fc;
+            padding: 70px 30px;
+            text-align: center;
+        }
+
+        .testimonial p {
+            max-width: 800px;
+            margin: auto;
+            font-size: 20px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .testimonial .author {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">MyBrand</div>
+        <nav>
+            #Home</a>
+            #featuresFeatures</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Build Something Exceptional</h1>
+        <p>Launch clean, modern, and fast web experiences with ease.</p>
+        <a class="cta-btn" href="#features">Get Started</a>
+    </section>
+
+    <section class="section" id="features">
+        <h2>Why Choose Us?</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>⚡ Fast</h3>
+                <p>Optimized layouts that load instantly and feel responsive.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🎨 Modern Design</h3>
+                <p>Clean, minimal, and professional styling built with purpose.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>📱 Fully Responsive</h3>
+                <p>Looks great on desktops, tablets, and mobile devices.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>🛠 Easy to Customize</h3>
+                <p>Lightweight structure you can tailor exactly to your needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonial">
+        <p>“This is by far the cleanest and most flexible landing page I’ve used.  
+        The design is beautiful, and setup took less than five minutes.”</p>
+        <div class="author">— Happy Customer</div>
+    </section>
+
+    <footer>
+        © 2026 MyBrand — All rights reserved.
+    </footer>
+
+</body>
+</html>
