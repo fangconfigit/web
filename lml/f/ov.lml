@@ -1,0 +1,9 @@
+model Tshirt {
+    var Color: string {Red, Green, Black};
+    var RGB: enum? {R, G, B};
+    var isRed: bool?;
+    
+    rule: if Color.Red then isRed ?? true;
+    rule: if Color.Green then enabled( RGB );
+    rule: if Color.Black then disabled( RGB );
+}
