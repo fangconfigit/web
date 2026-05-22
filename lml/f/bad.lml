@@ -1,0 +1,26 @@
+model Car {
+    var MainColor: string { Black, White, Red };
+    var MainMaterial: Material;
+    var Seats: Seat* from 2 to 5;
+    var Trunk1: CarTrunk;
+
+    // dynamic instance
+    rule r1: all_equals(MainColor, Seats.Color);
+    rule r2: all_equals(MainMaterial.Name, Seats.SeatMaterial.Name);
+
+    // dynamic instance under static instance 
+    rule r3: sum(Trunk1.Boxes.Capacity) <= Trunk1.Capacity;
+}
+
+model CarTrunkBox {
+    var Capacity: number from 10 to 200;
+}
+
+model Seat {
+    var Color: string { Black, White, Red };
+    var SeatMaterial: Material;
+}
+model Material {
+    var Name: string { Cotton, Plastic };
+    var Color: string { Red, Green, Blue };
+}
