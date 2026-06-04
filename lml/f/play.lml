@@ -1,0 +1,13 @@
+model root {
+  var As: A* from 0 to 10;
+  var MaxX: number;
+  rule: MaxX = max(from (a: As) select max(a.Bs.X));
+}
+
+model A {
+  var Bs: B* from 0 to 10;
+}
+
+model B {
+  var X: number from 0 to 10;
+}
