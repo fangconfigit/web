@@ -1,0 +1,29 @@
+model Car {
+  var Event as effectivity: enum {E0, E1, E2, E3};
+  var Color: string {Red, Green, Black};
+  var Total: number from 0 to 200;
+  var BaseWeight: number from 100 to 120;
+  var SunRoof: SunRoofModel? with {
+      Event replaces Event;
+      Color replaces Color:
+        Red = r,
+        Green = g,
+        Black = b;
+    };
+  var b1: bool;
+  var b2: bool;
+  var b3: bool;
+
+  phase: Event;
+
+  rule: truecount ({b1, b2, b3}) = 1;
+
+}
+
+model SunRoofModel {
+  var Event as effectivity: enum {E0, E1, E2, E3};
+  var Glass: enum {Tinted, Clear} when Event.E2 or Event.E3;
+  var Color: string {r, g, b};
+  var Size: enum {Standard, Panoramic};
+  var Weight: number from 0 to 50; 
+}
