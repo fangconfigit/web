@@ -1,0 +1,96 @@
+
+model DEVICE {
+  option multiValuedSeparator: ".";
+
+  macro NoneOf(args*): truecount args = 0;
+  macro AnyOf(args*): truecount args > 0;
+  macro ExactlyOneOf(args*): truecount args = 1;
+  macro AtMostOneOf(args*): truecount args <= 1;
+  macro AtLeastOneOf(args*): truecount args >= 1;
+  macro AllOf(args*): truecount args = count args;
+
+  /// Device
+  var PROGRAMME: string {NOPROGRAMME};
+  /// Device
+  var EVENT as effectivity: enum {DEVICE_START, DEVICE_END};
+  var DIM_BUILDDATE: datetime;
+  /// Market
+  var MRKT: string {DEU, DNK}
+  when (EVENT >= "DEVICE_START") and (EVENT < "DEVICE_END");
+  /// Product Range
+  var PROD: string {DEVICE};
+  /// Brand
+  var BRND: string {ECO};
+  /// Range from optional battery
+  var BATTRANGE as calculated: number from 0 to 999 scale 0
+  when table(
+    (BATTRANGE>=, BATTRANGE<=,      EVENT>=,     EVENT<),
+    (          0,         999, DEVICE_START, DEVICE_END),
+    (          *,           *,   DEVICE_END,          *)
+  );
+  /// Boosted range from optional battery
+  var BATTBOOST as calculated: number from 0 to 999 scale 0
+  when table(
+    (BATTBOOST>=, BATTBOOST<=,      EVENT>=,     EVENT<),
+    (          0,         999, DEVICE_START, DEVICE_END),
+    (          *,           *,   DEVICE_END,          *)
+  );
+  /// Battery
+  var BATTERY_SM: BATTERY? with {
+    EVENT replaces EVENT :
+    DEVICE_START = BATTERY_START,
+    DEVICE_END = BATTERY_END;
+    DIM_BUILDDATE as private;
+  };
+
+  phase : MRKT, DIM_BUILDDATE, EVENT, PROGRAMME;
+
+  /// Build Date range for Event DEVICE_START
+  rule [{ace|event|pr=DEVICE,c=DEVICE_START|Build Date for Event Default Start Date (DEVICE_START)}]:
+  (EVENT = "DEVICE_START") -> ((DIM_BUILDDATE >= |2000-01-01|) and (DIM_BUILDDATE < |9999-12-31|));
+  /// Events that are not allowed to be selected
+  rule UnavailableEvents: not (EVENT in {"DEVICE_END"});
+  /// Events for Programme NOPROGRAMME
+  rule [{ace|programme|pr=DEVICE,c=NOPROGRAMME|Events for Programme  (NOPROGRAMME)}]:
+  (EVENT in {"DEVICE_START","DEVICE_END"}) = (PROGRAMME = "NOPROGRAMME");
+
+  defaults DEVICEDefaults {
+  }
+}
+
+model BATTERY {
+  option multiValuedSeparator: ".";
+
+  macro NoneOf(args*): truecount args = 0;
+  macro AnyOf(args*): truecount args > 0;
+  macro ExactlyOneOf(args*): truecount args = 1;
+  macro AtMostOneOf(args*): truecount args <= 1;
+  macro AtLeastOneOf(args*): truecount args >= 1;
+  macro AllOf(args*): truecount args = count args;
+
+  /// Battery
+  var EVENT as effectivity: enum {BATTERY_START, BATTERY_END};
+  var DIM_BUILDDATE: datetime;
+  /// Product Range
+  var PROD: string {BATTERY};
+  /// Brand
+  var BRND: string {ECO};
+  /// Battery capacity in Wh
+  var BATTCAP: number from 0 to 100 scale 0
+  when table(
+    (BATTCAP>=, BATTCAP<=,       EVENT>=,      EVENT<),
+    (        0,       100, BATTERY_START, BATTERY_END),
+    (        *,         *,   BATTERY_END,           *)
+  );
+
+  phase : DIM_BUILDDATE, EVENT;
+
+  /// Build Date range for Event BATTERY_START
+  rule [{ace|event|pr=BATTERY,c=BATTERY_START|Build Date for Event Default Start Date (BATTERY_START)}]:
+  (EVENT = "BATTERY_START") -> ((DIM_BUILDDATE >= |2000-01-01|) and (DIM_BUILDDATE < |9999-12-31|));
+  /// Events that are not allowed to be selected
+  rule UnavailableEvents: not (EVENT in {"BATTERY_END"});
+
+  defaults BATTERYDefaults {
+  }
+}
