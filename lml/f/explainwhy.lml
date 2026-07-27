@@ -1,0 +1,9 @@
+model MyModel {
+    var W: enum {W0, W1};
+    var X: enum {XB, XA, XC};
+    var M: enum {M0, M1};
+    var T: enum {T0, T1};
+    rule [bddX]: (W != 0) or (X != 2);
+    rule [bddT]: (M != 0) or (T = 0);
+    rule [propM]: (X = 2) or (M = 0);
+}
